@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  app:
+    build: .
+    image: app
+    container_name: falcon
+    ports:
+      - 5001:5001
+    command: gunicorn app.wsgi:api --bind 0.0.0.0:5001 --workers 2 --threads 4 --worker-class gthread --worker-tmp-dir /dev/shm
+    env_file:
+      - .env
